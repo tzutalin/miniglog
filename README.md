@@ -16,14 +16,25 @@ Let people include and build c++ logging quickly
     $ cd ~
     $ git clone https://github.com/tzutalin/miniglog.git
 
+### Build
+* Ubuntu/Mac/Windows
+
+   `mkdir build; cd build`
+   `cmake -D CMAKE_INSTALL_PREFIX=. ..; make -j8; make install`
+
+   Build and run test sample
+   `cd ../example/test/;cmake .;make`
+   `./test`
+
+* Android build
+   `cd example`
+   `ndk-build`
+
 ### Usage
 
 LOG Level: FATAL ERROR WARNING INFO
 
 ```
-    // Initialize
-    google::InitGoogleLogging("Test");
-
     // Log level is INFO
     LOG(INFO) << "Dump log test";
 ```

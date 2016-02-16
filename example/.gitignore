@@ -1,3 +1,6 @@
-./jniLibs
-./libs
-./obj
+jniLibs
+libs
+obj
+test/CMakeCache.txt
+test/CMakeFiles
+test/Makefile

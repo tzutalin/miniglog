@@ -1,4 +1,4 @@
-#include <logging.h>
+#include <glog/logging.h>
 
 int main() {
     google::InitGoogleLogging("Test");
