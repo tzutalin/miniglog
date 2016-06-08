@@ -23,7 +23,7 @@ Let people include and build c++ logging quickly
    `cmake -D CMAKE_INSTALL_PREFIX=. ..; make -j8; make install`
 
    Build and run test sample
-   `cd ../example/test/;cmake .;make`
+   `cd ../example/test/; cmake .;make`
    `./test`
 
 * Android build
@@ -37,11 +37,33 @@ LOG Level: FATAL ERROR WARNING INFO
 ```
     // Log level is INFO
     LOG(INFO) << "Dump log test";
+    // If the marco start with 'D', stands for Debug only
+    DLOG(INFO) << "Dump log test";
+    // You can aslo use other check marco like as below
+    DCHECK_EQ(val1, val2)
+    DCHECK_NE(val1, val2)
+    DCHECK_LE(val1, val2)
+    DCHECK_LT(val1, val2)
+    DCHECK_GE(val1, val2)
+    DCHECK_GT(val1, val2)
 ```
 
-You can refer to the sampe code
+You can import it quickly to your Android.mk
+```
+    #MINIGLOG_LIB_TYPE:=SHARED
+    MINIGLOG_LIB_TYPE:=STATIC
+    
+    ifeq ($(MINIGLOG_LIB_TYPE),SHARED)
+        LOCAL_SHARED_LIBRARIES := miniglog
+    else
+        LOCAL_STATIC_LIBRARIES := miniglog
+    endif
+    
+    include [Miniglog folder]/miniglog.mk
+```
+
+You can refer to the sample code
 
 Android example and Android.mk: You can refer to
 
 [./example/jni](./example/jni)
-
