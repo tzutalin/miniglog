@@ -27,4 +27,5 @@ TARGET_OUT='jniLibs/$(TARGET_ARCH_ABI)'
 
 include $(BUILD_EXECUTABLE)
 
-include $(LOCAL_PATH)/../../miniglog.mk
+# Include MINIGLOG.mk
+include $(LOCAL_PATH)/../../MINIGLOG.mk
