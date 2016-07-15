@@ -71,12 +71,12 @@ You can import it quickly to your Android.mk
     MINIGLOG_LIB_TYPE:=STATIC
  
     ifeq ($(MINIGLOG_LIB_TYPE),SHARED)
-        LOCAL_SHARED_LIBRARIES := miniglog
+        LOCAL_SHARED_LIBRARIES += miniglog
     else
-        LOCAL_STATIC_LIBRARIES := miniglog
+        LOCAL_STATIC_LIBRARIES += miniglog
     endif
  
-    include [Miniglog folder]/MINIGLOG.mk
+    include [Miniglog folder]/Android.mk
 ```
 
 You can refer to the sample code
