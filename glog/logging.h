@@ -239,7 +239,7 @@ class MessageLogger {
         // Yellow color if warning
         std::cerr << "\033[1;33m"<< tid_cstr << time_cstr << SeverityLabelStr() << stream_.str() << "\033[0m";
     } else {
-        std::cerr << time_cstr << tid_cstr << SeverityLabelStr() << stream_.str();
+        std::cerr << tid_cstr << time_cstr << SeverityLabelStr() << stream_.str();
     }
 #endif
 
