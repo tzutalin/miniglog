@@ -95,6 +95,7 @@
 #ifdef ANDROID
 #  include <android/log.h>
 #else
+#include <pthread.h>
 #include <sys/time.h>
 #include <unistd.h>
 // Class created for each use of the logging macros.
@@ -213,7 +214,9 @@ class MessageLogger {
                           "terminating.\n");
     }
 #else
+    // For Ubuntu/Mac/Windows
     // If not building on Android, log all output to std::cerr.
+    // Get timestamp
     timeval curTime;
     gettimeofday(&curTime, NULL);
     int milli = curTime.tv_usec / 1000;
@@ -221,18 +224,22 @@ class MessageLogger {
     strftime(buffer, 80, "%m-%d %H:%M:%S", localtime(&curTime.tv_sec));
     char time_cstr[24] = "";
     sprintf(time_cstr, "%s:%d ", buffer, milli);
-
+    // Get pid & tid
+    char tid_cstr[24] = "";
+    pid_t		pid = getpid();
+    pthread_t tid = pthread_self();
+    sprintf(tid_cstr, "%d/%u ", (unsigned int)pid, (unsigned int)tid);
     if (severity_ == FATAL) {
         // Magenta color if fatal
-        std::cerr << "\033[1;35m"<< time_cstr << SeverityLabelStr() << stream_.str() << "\033[0m\n";
+        std::cerr << "\033[1;35m"<< tid_cstr << time_cstr << SeverityLabelStr() << stream_.str() << "\033[0m";
     } else if (severity_ == ERROR) {
         // Red color if error
-        std::cerr << "\033[1;31m"<< time_cstr << SeverityLabelStr() << stream_.str() << "\033[0m\n";
+        std::cerr << "\033[1;31m"<< tid_cstr << time_cstr << SeverityLabelStr() << stream_.str() << "\033[0m";
     } else if (severity_ == WARNING) {
         // Yellow color if warning
-        std::cerr << "\033[1;33m"<< time_cstr << SeverityLabelStr() << stream_.str() << "\033[0m\n";
+        std::cerr << "\033[1;33m"<< tid_cstr << time_cstr << SeverityLabelStr() << stream_.str() << "\033[0m";
     } else {
-        std::cerr << time_cstr << SeverityLabelStr() << stream_.str();
+        std::cerr << time_cstr << tid_cstr << SeverityLabelStr() << stream_.str();
     }
 #endif
 

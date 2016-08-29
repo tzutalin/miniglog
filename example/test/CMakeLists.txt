@@ -10,6 +10,7 @@ file(GLOB test_dep
     "*.cpp"
 )
 
+find_package (Threads)
 include_directories( ${MINIGLOG_INCLUDE_DIRS})
 add_executable( test ${test_dep} )
-target_link_libraries( test ${MINIGLOG_LIBS} )
+target_link_libraries( test ${MINIGLOG_LIBS} ${CMAKE_THREAD_LIBS_INIT})
