@@ -162,7 +162,6 @@ inline void RemoveLogSink(LogSink *sink) {
 }
 
 }  // namespace google
-
 // ---------------------------- Logger Class --------------------------------
 // Class created for each use of the logging macros.
 // The logger acts as a stream and routes the final stream contents to the
@@ -176,7 +175,12 @@ class MessageLogger {
     : file_(file), line_(line), tag_(tag), severity_(severity) {
     // Pre-pend the stream with the file and line number.
     StripBasename(std::string(file), &filename_only_);
+
+#ifdef ANDROID
     stream_ << SeverityLabel() << "/" << filename_only_ << ":" << line << " ";
+#else
+    stream_ << " " << filename_only_ << ":" << line << " ";
+#endif
   }
 
   // Output the contents of the stream to the proper channel on destruction.
@@ -217,8 +221,20 @@ class MessageLogger {
     strftime(buffer, 80, "%m-%d %H:%M:%S", localtime(&curTime.tv_sec));
     char time_cstr[24] = "";
     sprintf(time_cstr, "%s:%d ", buffer, milli);
-    std::cerr << time_cstr << stream_.str();
-#endif  // ANDROID
+
+    if (severity_ == FATAL) {
+        // Magenta color if fatal
+        std::cerr << "\033[1;35m"<< time_cstr << SeverityLabelStr() << stream_.str() << "\033[0m\n";
+    } else if (severity_ == ERROR) {
+        // Red color if error
+        std::cerr << "\033[1;31m"<< time_cstr << SeverityLabelStr() << stream_.str() << "\033[0m\n";
+    } else if (severity_ == WARNING) {
+        // Yellow color if warning
+        std::cerr << "\033[1;33m"<< time_cstr << SeverityLabelStr() << stream_.str() << "\033[0m\n";
+    } else {
+        std::cerr << time_cstr << SeverityLabelStr() << stream_.str();
+    }
+#endif
 
     LogToSinks(severity_);
     WaitForSinks();
@@ -283,6 +299,21 @@ class MessageLogger {
         return 'I';
       default:
         return 'V';
+    }
+  }
+
+  std::string SeverityLabelStr() {
+    switch (severity_) {
+      case FATAL:
+        return "FATAL   ";
+      case ERROR:
+        return "ERROR   ";
+      case WARNING:
+        return "WARNING ";
+      case INFO:
+        return "INFO    ";
+      default:
+        return "VERBOSE ";
     }
   }
 
