@@ -94,6 +94,10 @@
 
 #ifdef ANDROID
 #  include <android/log.h>
+#else
+#include <sys/time.h>
+#include <unistd.h>
+// Class created for each use of the logging macros.
 #endif  // ANDROID
 
 #include <algorithm>
@@ -160,7 +164,6 @@ inline void RemoveLogSink(LogSink *sink) {
 }  // namespace google
 
 // ---------------------------- Logger Class --------------------------------
-
 // Class created for each use of the logging macros.
 // The logger acts as a stream and routes the final stream contents to the
 // Android logcat output at the proper filter level.  If ANDROID is not
@@ -207,7 +210,14 @@ class MessageLogger {
     }
 #else
     // If not building on Android, log all output to std::cerr.
-    std::cerr << stream_.str();
+    timeval curTime;
+    gettimeofday(&curTime, NULL);
+    int milli = curTime.tv_usec / 1000;
+    char buffer [20];
+    strftime(buffer, 80, "%m-%d %H:%M:%S", localtime(&curTime.tv_sec));
+    char time_cstr[24] = "";
+    sprintf(time_cstr, "%s:%d ", buffer, milli);
+    std::cerr << time_cstr << stream_.str();
 #endif  // ANDROID
 
     LogToSinks(severity_);
