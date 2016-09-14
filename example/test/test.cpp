@@ -8,15 +8,21 @@
 
 pthread_t newTid;
 
-void *threadRunnableFun(void *arg) {
-  LOG(WARNING) << "Run in another thread"; 
+void *ThreadRunnable(void *arg) {
+  LOG(WARNING) << "Run in another thread";
   return ((void *)0);
 }
 
+void TestStopWatch() {
+  int *ptr = new int[10];
+  CHECK_NOTNULL(ptr);
+  DLOG(INFO) << "of [" << __func__ << "]";
+}
+
 int main() {
-  google::InitGoogleLogging((char *)"Test");
   LOG(INFO) << "Dump log test";
 
+  // CHECK Operation
   CHECK_NE(1, 2) << ": The world must be ending!";
   // Check if it is euqual
   CHECK_EQ(std::string("abc")[1], 'b');
@@ -26,11 +32,12 @@ int main() {
   LOG_IF(ERROR, x > y) << "2 > 1. This should be also OK";
 
   // Test dump log in different thread
-  int err = pthread_create(&newTid, NULL, threadRunnableFun, NULL);
+  int err = pthread_create(&newTid, NULL, ThreadRunnable, NULL);
   if (err != 0) {
     LOG(FATAL) << "Unable to create a thread";
     return 1;
   }
   sleep(1);
+  TestStopWatch();
   return 0;
 }

@@ -1,6 +1,6 @@
 // Ceres Solver - A fast non-linear least squares minimizer
-// Copyright 2012 Google Inc. All rights reserved.
-// http://code.google.com/p/ceres-solver/
+// Copyright 2015 Google Inc. All rights reserved.
+// http://ceres-solver.org/
 //
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions are met:
@@ -28,14 +28,12 @@
 //
 // Author: keir@google.com (Keir Mierle)
 
-#include "./logging.h"
+#include "glog/logging.h"
 
 namespace google {
 
 // This is the set of log sinks. This must be in a separate library to ensure
 // that there is only one instance of this across the entire program.
 std::set<google::LogSink *> log_sinks_global;
-
-int log_severity_global(INFO);
 
 }  // namespace ceres
