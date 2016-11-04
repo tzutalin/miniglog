@@ -5,6 +5,7 @@ cmake_minimum_required(VERSION 2.8)
 set(TARGET_SRC glog/logging.cc)
 set(TARGET_HDR glog/logging.h)
 
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 add_library(miniglog SHARED ${TARGET_SRC} ${TARGET_HDR})
 
 # when other libraries or executables link to <target>.

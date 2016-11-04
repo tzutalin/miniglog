@@ -1,8 +1,10 @@
 # miniglog
 
-A logging C++ library based on the miniglog library found in ceres-solver
+A logging C++ library based on the miniglog library found in ceres-solver.
 
 Let people include and build c++ logging quickly
+
+I update the original miniglog because it won't show pid/tid/timestamp.
 
 ### Benefits
 * Very small (less than 1000 LOC)
@@ -122,5 +124,4 @@ You can import it quickly to your Android.mk. Android example and Android.mk, yo
 ```
 
 [More info about the usage of glog](http://rpg.ifi.uzh.ch/docs/glog.html)
-
 
