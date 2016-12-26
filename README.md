@@ -21,7 +21,16 @@ I update the original miniglog because it won't show pid/tid/timestamp.
 ```
     Need to setup cmake and android ndk first
     $ cd miniglog
-    $ ./build.sh
+
+    Build for desktop
+    $ python build.py
+
+    Build for Android
+    $ python build.py --ndk ${ANDROID_NDK} arm64-v8a
+
+    Add --ninja to build with ninja
+    $ python build.py --ninja
+    $ python build.py --ninja --ndk ${ANDROID_NDK} --abi x86
 ```
 
 ### Usage
