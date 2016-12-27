@@ -26,7 +26,7 @@ I update the original miniglog because it won't show pid/tid/timestamp.
     $ python build.py
 
     Build for Android
-    $ python build.py --ndk ${ANDROID_NDK} arm64-v8a
+    $ python build.py --ndk ${ANDROID_NDK} --abi arm64-v8a
 
     Add --ninja to build with ninja
     $ python build.py --ninja
