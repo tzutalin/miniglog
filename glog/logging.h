@@ -228,7 +228,7 @@ class CERES_EXPORT MessageLogger {
     char tid_cstr[24] = "";
     pid_t  pid = getpid();
     pthread_t tid = pthread_self();
-    sprintf(tid_cstr, "%d/%u ", (unsigned int)pid, (unsigned int)tid);
+    sprintf(tid_cstr, "%d/%u ", pid, tid);
     if (severity_ == FATAL) {
         // Magenta color if fatal
         std::cerr << "\033[1;35m"<< tid_cstr << time_cstr << SeverityLabelStr() << stream_.str() << "\033[0m";
