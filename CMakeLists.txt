@@ -1,9 +1,12 @@
 cmake_minimum_required(VERSION 3.4.1)
 
-project(miniglog)
 
-set(TARGET_SRC glog/logging.cc)
-set(TARGET_HDR glog/logging.h)
+IF(NOT PROJECT_NAME)
+  project(miniglog)
+ENDIF(NOT PROJECT_NAME)
+
+set(TARGET_SRC ${CMAKE_CURRENT_LIST_DIR}/glog/logging.cc)
+set(TARGET_HDR ${CMAKE_CURRENT_LIST_DIR}/glog/logging.h)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 add_library(miniglog SHARED ${TARGET_SRC} ${TARGET_HDR})
