@@ -2,3 +2,4 @@ build
 example/obj/
 example/lib/
 build-android-*
+*.tar.gz
