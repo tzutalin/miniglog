@@ -1,8 +1,10 @@
 language: cpp
-before_install:
-  - sudo add-apt-repository ppa:george-edison55/precise-backports -y
-  - sudo apt-get update
-install:
-  - sudo apt-get install -y cmake
+addons:
+  apt:
+    sources:
+      - george-edison55-precise-backports # cmake 3.2.3 / doxygen 1.8.3
+    packages:
+      - cmake
+      - cmake-data
 script:
   - mkdir build && cd build && cmake -D CMAKE_INSTALL_PREFIX=. ..; make -j8; make install
