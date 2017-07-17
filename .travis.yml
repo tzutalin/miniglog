@@ -1,9 +1,9 @@
 language: cpp
 install:
-  - sudo apt-get install software-properties-common
+  - sudo apt-get install -y software-properties-common
   - sudo add-apt-repository ppa:george-edison55/cmake-3.x
   - sudo apt-get update
-  - sudo apt-get install cmake
+  - sudo apt-get install -y cmake
   - sudo apt-get upgrade
 script:
   - mkdir build && cd build && cmake -D CMAKE_INSTALL_PREFIX=. ..; make -j8; make install
