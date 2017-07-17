@@ -1,6 +1,6 @@
 # miniglog
 
-[![Build Status](https://travis-ci.org/tzutalin/labelImg.png)](https://travis-ci.org/tzutalin/miniglog)
+[![Build Status](https://travis-ci.org/tzutalin/miniglog.png)](https://travis-ci.org/tzutalin/miniglog)
 
 A logging C++ library based on the miniglog library found in ceres-solver.
 
